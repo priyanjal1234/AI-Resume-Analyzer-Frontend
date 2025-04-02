@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 import conf from "../../config/conf.js";
 
 const firebaseConfig = {
-  apiKey: conf.firebaseApiKey,
+  apiKey: "AIzaSyCEbhql9bZ8-chietLxlBvSn5b10In0hFM",
   authDomain: "ai-resume-analyzer-3e0cf.firebaseapp.com",
   projectId: "ai-resume-analyzer-3e0cf",
   storageBucket: "ai-resume-analyzer-3e0cf.firebasestorage.app",
