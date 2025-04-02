@@ -3,7 +3,7 @@ import api from "./api";
 class ResumeService {
   constructor() {
     this.api = api;
-    this.baseUrl = "http://localhost:3000";
+    this.baseUrl = "https://ai-resume-analyser-backend.onrender.com";
   }
 
   async getFeedback(resumeData) {
