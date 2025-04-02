@@ -6,10 +6,10 @@ class ResumeService {
     this.baseUrl = "http://localhost:3000";
   }
 
-  async uploadResume(resumeData) {
+  async getFeedback(resumeData) {
     try {
       return await this.api.post(
-        `${this.baseUrl}/api/upload-resume`,
+        `${this.baseUrl}/api/get-feedback`,
         resumeData,
         { withCredentials: true }
       );

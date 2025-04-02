@@ -1,15 +1,19 @@
 import { Upload, X } from "lucide-react";
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import resumeService from "../services/Resume";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import cleanJSON from "../utils/cleanJSON";
+import { FeedbackDataContext } from "../context/FeedbackContext";
 
 const UploadModal = ({ setshowUploadModal }) => {
   const resumeRef = useRef(null);
   const [fileData, setfileData] = useState(null);
   const [isUploading, setisUploading] = useState(false);
-  let navigate = useNavigate()
+  let navigate = useNavigate();
+
+  let {  setfeedback } = useContext(FeedbackDataContext);
 
   const onDrop = async (acceptedFiles) => {
     if (Array.isArray(acceptedFiles) && acceptedFiles.length > 0) {
@@ -19,10 +23,13 @@ const UploadModal = ({ setshowUploadModal }) => {
       let formdata = new FormData();
       formdata.append("resume", acceptedFiles[0]);
       try {
-        let uploadResumeRes = await resumeService.uploadResume(formdata);
-        if(uploadResumeRes.status === 200) {
+        let feedbackRes = await resumeService.getFeedback(formdata);
+
+        if (feedbackRes.status === 200) {
+          let onlyJson = cleanJSON(feedbackRes?.data?.feedback);
           setisUploading(false);
-          navigate("/feedback")
+          setfeedback(onlyJson);
+          navigate("/feedback");
         }
       } catch (error) {
         setisUploading(false);
